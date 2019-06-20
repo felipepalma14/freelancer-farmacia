@@ -41,7 +41,9 @@ public class ListaProdutos extends AppCompatActivity {
          btnMaps.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent tela=new Intent(ListaProdutos.this,MapsActivity.class);
+//                 Intent tela=new Intent(ListaProdutos.this,MapsActivity.class);
+                 Intent tela=new Intent(ListaProdutos.this,FarmaciaMapsActivity.class);
+
                  startActivity(tela);
              }
          });
