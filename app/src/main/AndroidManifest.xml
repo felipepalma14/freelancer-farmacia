@@ -39,8 +39,8 @@
             android:name="com.here.android.maps.apptoken"
             android:value="maKOcP1AH7Ws_9lp_Fe9nQ" />
 
-        <activity android:name=".cadastrarproduto" />
-        <activity android:name=".telaprodutos" />
+        <activity android:name=".CadastraProdutoActivity" />
+        <activity android:name=".ListaProdutos" />
         <activity android:name=".produtos" />
         <activity android:name=".MainActivity"/>
         <activity android:name=".LoginActivity">

@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class cadastrarproduto extends AppCompatActivity {
+public class CadastraProdutoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +27,9 @@ public class cadastrarproduto extends AppCompatActivity {
                 try {
                     db.insertProduto(nomeproduto, valorproduto);
                 }catch(Exception exc){
-                    Toast.makeText(cadastrarproduto.this,"Não foi possível cadastrar produto: "+exc,Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastraProdutoActivity.this,"Não foi possível cadastrar produto: "+exc,Toast.LENGTH_LONG).show();
                 }
-                Intent tela= new Intent(cadastrarproduto.this,telaprodutos.class);
+                Intent tela= new Intent(CadastraProdutoActivity.this, ListaProdutos.class);
                 startActivity(tela);
 
             }

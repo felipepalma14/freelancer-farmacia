@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 String resultado;
 
                 resultado=controle.insertUser(cpfS,nomeS,emailS,idadeS,cidades,senhaS);
-                Intent intent= new Intent(MainActivity.this, telaprodutos.class);
+                Intent intent= new Intent(MainActivity.this, ListaProdutos.class);
                 startActivity(intent);
 
 

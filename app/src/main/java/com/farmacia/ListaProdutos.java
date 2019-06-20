@@ -1,11 +1,8 @@
 package com.farmacia;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,12 +10,14 @@ import android.widget.ListView;
 
 import java.util.List;
 
-public class telaprodutos extends AppCompatActivity {
+public class ListaProdutos extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_telaprodutos);
+
+
         dbcontroller db= new dbcontroller(getBaseContext());
         List<produtos> p= db.retornaProduto();
         ListView lv= (ListView)findViewById(R.id.listaProdutos);
@@ -35,14 +34,14 @@ public class telaprodutos extends AppCompatActivity {
          btnAddProduto.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent tela=new Intent(telaprodutos.this,cadastrarproduto.class);
+                 Intent tela=new Intent(ListaProdutos.this, CadastraProdutoActivity.class);
                  startActivity(tela);
              }
          });
          btnMaps.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent tela=new Intent(telaprodutos.this,MapsActivity.class);
+                 Intent tela=new Intent(ListaProdutos.this,MapsActivity.class);
                  startActivity(tela);
              }
          });

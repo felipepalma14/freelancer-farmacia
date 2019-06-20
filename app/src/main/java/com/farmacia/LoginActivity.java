@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
                 String senhaS=Senha.getText().toString();
                 Boolean loginCheck= db.logincheck(loginS,senhaS);
                 if(loginCheck==true){
-                    Intent i = new Intent(LoginActivity.this, telaprodutos.class);
+                    Intent i = new Intent(LoginActivity.this, ListaProdutos.class);
                     Toast.makeText(LoginActivity.this,"Seja bem vindo",Toast.LENGTH_LONG).show();
                     startActivity(i);
                 }else{

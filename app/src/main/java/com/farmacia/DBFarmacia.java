@@ -41,7 +41,9 @@ public class DBFarmacia extends SQLiteOpenHelper  {
         db.execSQL("DROP TABLE IF EXISTS "+ tb_usuario);
         db.execSQL("DROP TABLE IF EXISTS "+ tb_produtos);
         onCreate(db);
-    }public Boolean logincheck(String CPF, String senha){
+    }
+
+    public Boolean logincheck(String CPF, String senha){
         SQLiteDatabase db= this.getReadableDatabase();
         Cursor cursor= db.rawQuery("select * from tb_usuario where cpf=? and senha=?",new String[]{CPF,senha});
         if(cursor.getCount()>0)return true;
