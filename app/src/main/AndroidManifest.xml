@@ -58,7 +58,7 @@
         <activity android:name=".CadastraProdutoActivity" />
         <activity android:name=".ListaProdutos" />
         <activity android:name=".produtos" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".CadastroUsuarioActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

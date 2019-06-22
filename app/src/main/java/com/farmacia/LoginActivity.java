@@ -8,26 +8,43 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.farmacia.databases.Database;
+
 public class LoginActivity extends AppCompatActivity {
-    EditText Login,Senha;
-    Button Logar,Cadastrar;
-    DBFarmacia db;
+
+    private EditText edtLogin, edtSenha;
+
+    private Button btnLogin, btnCadastrar;
+
+    //DBFarmacia db;
+
+    private static final String TAG = LoginActivity.class.getSimpleName();
+    private static Database mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Login=findViewById(R.id.etxLogin);
-        Senha=findViewById(R.id.etxSenhaL);
-        Logar=findViewById(R.id.btnLogar);
-        Cadastrar=findViewById(R.id.btnCriarConta);
-        db= new DBFarmacia(this);
 
-        Logar.setOnClickListener(new View.OnClickListener() {
+        edtLogin = findViewById(R.id.edtLogin);
+        edtSenha = findViewById(R.id.edtSenha);
+
+        btnLogin = findViewById(R.id.btnLogar);
+        btnCadastrar = findViewById(R.id.btnCriarConta);
+
+        mDatabase = new Database(this);
+        mDatabase.open();
+
+        //db= new DBFarmacia(this);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String loginS=Login.getText().toString();
-                String senhaS=Senha.getText().toString();
-                Boolean loginCheck= db.logincheck(loginS,senhaS);
+
+                String loginS= edtLogin.getText().toString();
+                String senhaS=edtSenha.getText().toString();
+                Boolean loginCheck= mDatabase.mUsuarioDao.fazerLogin(loginS,senhaS);
+
                 if(loginCheck==true){
                     Intent i = new Intent(LoginActivity.this, ListaProdutos.class);
                     Toast.makeText(LoginActivity.this,"Seja bem vindo",Toast.LENGTH_LONG).show();
@@ -41,10 +58,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        Cadastrar.setOnClickListener(new View.OnClickListener() {
+        btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent n=new Intent(LoginActivity.this,MainActivity.class);
+                Intent n=new Intent(LoginActivity.this, CadastroUsuarioActivity.class);
                 startActivity(n);
             }
         });

@@ -18,7 +18,7 @@
 
 
         <EditText
-            android:id="@+id/etxLogin"
+            android:id="@+id/edtLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/etxSenhaL"
+            android:id="@+id/edtSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etxLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/edtLogin" />
 
         <Button
             android:id="@+id/btnLogar"

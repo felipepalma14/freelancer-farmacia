@@ -33,7 +33,7 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-15.7752496,-48.3581231);
         mMap.addMarker(new MarkerOptions().position(sydney).title("DISTRITO FEDERAL"));
-        mMap.setMinZoomPreference(14);
+        mMap.setMinZoomPreference(10);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
