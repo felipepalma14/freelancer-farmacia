@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.farmacia.databases.Database;
+import com.farmacia.models.Usuario;
+import com.farmacia.utils.LoginSingleton;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,11 +45,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 String loginS= edtLogin.getText().toString();
                 String senhaS=edtSenha.getText().toString();
-                Boolean loginCheck= mDatabase.mUsuarioDao.fazerLogin(loginS,senhaS);
+                Usuario mUsuario =  mDatabase.mUsuarioDao.fazerLogin(loginS,senhaS);
 
-                if(loginCheck==true){
+                if(mUsuario != null){
                     Intent i = new Intent(LoginActivity.this, ListaProdutos.class);
-                    Toast.makeText(LoginActivity.this,"Seja bem vindo",Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(LoginActivity.this,"Seja bem vindo: " + mUsuario.getNome(),Toast.LENGTH_LONG).show();
+
+                    LoginSingleton.getInstance().setUsuarioAutenticado(mUsuario);
+
                     startActivity(i);
                 }else{
                     Toast.makeText(LoginActivity.this, "CPF ou Senha errados",Toast.LENGTH_LONG).show();

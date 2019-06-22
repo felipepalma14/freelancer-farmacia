@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.farmacia.databases.Database;
 import com.farmacia.models.Cidade;
 import com.farmacia.models.Usuario;
+import com.farmacia.utils.LoginSingleton;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -71,19 +73,22 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 String emailS =edtEmail.getText().toString();
                 String cpfS =edtCPF.getText().toString();
                 String idadeS =edtIdade.getText().toString();
-                //String cidades =edtCidade.getText().toString();
                 String senhaS =edtSenha.getText().toString();
 
+                Cidade cidade = (Cidade) spnCidade.getSelectedItem();
                 String senhaConfirmaS =edtConfirmaSenha.getText().toString();
+
                 if ((senhaConfirmaS.equals(senhaS))) {
 
                     boolean resultado;
 
-                    Usuario mUsuario = new Usuario(cpfS, nomeS, emailS, senhaS, Integer.valueOf(idadeS));
+                    Usuario mUsuario = new Usuario(cidade, cpfS, nomeS, emailS, senhaS, Integer.valueOf(idadeS));
 
                     resultado = mDatabase.mUsuarioDao.adicionarUsuario(mUsuario);
+
                     if (resultado) {
                         Intent intent = new Intent(CadastroUsuarioActivity.this, ListaProdutos.class);
+
                         startActivity(intent);
                         limparCampos();
                         Toast.makeText(getBaseContext(), "Dados inseridos!!", Toast.LENGTH_LONG).show();
@@ -96,6 +101,18 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        spnCidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Log.d("ITEM", mDatabase.mCidadeDao.getTodasCidades().get(position).getNome());
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
     }
