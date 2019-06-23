@@ -4,6 +4,9 @@ public class Categoria {
     private int id;
     private String descricao;
 
+    public Categoria() {
+    }
+
     public Categoria(String descricao) {
         this.descricao = descricao;
     }

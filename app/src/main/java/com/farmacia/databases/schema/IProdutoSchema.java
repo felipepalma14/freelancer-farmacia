@@ -8,6 +8,7 @@ public interface IProdutoSchema {
     String COLUNA_ID = "_id";
     String COLUNA_NOME = "nome";
     String COLUNA_PESO = "peso";
+    String COLUNA_IMAGEM = "imagem";
 
     String COLUNA_ID_CATEGORIA = "_id_categoria";
 
@@ -17,11 +18,13 @@ public interface IProdutoSchema {
             + PRODUTO_TABLE
             + " ("
             + COLUNA_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,, "
             + COLUNA_NOME
             + " TEXT NOT NULL, "
             + COLUNA_PESO
-            + " INTEGER NOT NULL, "
+            + " TEXT NOT NULL, "
+            + COLUNA_IMAGEM
+            + "BLOB NOT NULL, "
             + COLUNA_ID_CATEGORIA
             + " INTEGER NOT NULL, "
             //FK
@@ -33,6 +36,6 @@ public interface IProdutoSchema {
             + ")";
 
     String[] PRODUTO_COLUNAS = new String[] {
-            COLUNA_ID,COLUNA_NOME,COLUNA_PESO, COLUNA_ID_CATEGORIA
+            COLUNA_ID,COLUNA_NOME,COLUNA_PESO, COLUNA_IMAGEM,  COLUNA_ID_CATEGORIA
     };
 }

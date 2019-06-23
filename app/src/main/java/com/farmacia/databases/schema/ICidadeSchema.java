@@ -12,7 +12,7 @@ public interface ICidadeSchema {
             + CIDADE_TABLE
             + " ("
             + COLUNA_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,, "
             + COLUNA_DESCRICAO
             + " TEXT NOT NULL "
             + ")";

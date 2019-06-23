@@ -24,7 +24,7 @@ public interface IFarmaciaSchema {
             + FARMACIA_TABLE
             + " ("
             + COLUNA_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + COLUNA_ENDERECO
             + " TEXT NOT NULL, "
             + COLUNA_NOME

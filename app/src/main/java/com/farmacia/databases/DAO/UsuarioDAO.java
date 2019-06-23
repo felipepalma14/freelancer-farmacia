@@ -23,9 +23,12 @@ public class UsuarioDAO extends DatabaseContentProvider implements IUsuarioSchem
     private Cursor cursor;
     private ContentValues initialValues;
 
+    private CidadeDAO cidadeDAO;
 
-    public UsuarioDAO(SQLiteDatabase db){
+
+    public UsuarioDAO(SQLiteDatabase db, CidadeDAO cidadeDAO){
         super(db);
+        this.cidadeDAO = cidadeDAO;
     }
 
 
@@ -103,7 +106,10 @@ public class UsuarioDAO extends DatabaseContentProvider implements IUsuarioSchem
 
         int idIndex;
         int userNameIndex;
+        int idadeIndex;
+        int cpfIndex;
         int emailIndex;
+        int cidadeIndex;
         int dateIndex;
 
         if (cursor != null) {
@@ -121,7 +127,21 @@ public class UsuarioDAO extends DatabaseContentProvider implements IUsuarioSchem
                         COLUNA_EMAIL);
                 mUsuario.setEmail(cursor.getString(emailIndex));
             }
-
+            if (cursor.getColumnIndex(COLUNA_CPF) != -1) {
+                cpfIndex = cursor.getColumnIndexOrThrow(
+                        COLUNA_CPF);
+                mUsuario.setCpf(cursor.getString(cpfIndex));
+            }
+            if (cursor.getColumnIndex(COLUNA_IDADE) != -1) {
+                idadeIndex = cursor.getColumnIndexOrThrow(
+                        COLUNA_IDADE);
+                mUsuario.setEmail(cursor.getString(idadeIndex));
+            }
+            if (cursor.getColumnIndex(COLUNA_ID_CIDADE) != -1) {
+                cidadeIndex = cursor.getColumnIndexOrThrow(
+                        COLUNA_ID_CIDADE);
+                mUsuario.setCidade(cidadeDAO.getCidadePorId(cursor.getInt(cidadeIndex)));
+            }
 
         }
         return mUsuario;
