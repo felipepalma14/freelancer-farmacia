@@ -11,6 +11,7 @@
         android:id="@+id/imgView"
         android:layout_margin="20dp"
         android:onClick="botaoClicado"
+        android:src="@drawable/no_image"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 

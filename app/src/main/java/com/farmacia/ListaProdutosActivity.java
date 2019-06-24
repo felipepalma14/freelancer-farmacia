@@ -3,19 +3,20 @@ package com.farmacia;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.farmacia.adapters.ProdutoAdapter;
 import com.farmacia.databases.Database;
 import com.farmacia.models.Produto;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class ListaProdutos extends AppCompatActivity {
+public class ListaProdutosActivity extends AppCompatActivity {
 
-    private static final String TAG = ListaProdutos.class.getSimpleName();
+    private static final String TAG = ListaProdutosActivity.class.getSimpleName();
     private static Database mDatabase;
 
 
@@ -29,14 +30,11 @@ public class ListaProdutos extends AppCompatActivity {
         mDatabase.open();
 
 
-        List<Produto> listaProdutos = mDatabase.mProdutoDAO.getTodosProdutos();
+        ArrayList<Produto> listaProdutos = mDatabase.mProdutoDAO.getTodosProdutos();
 
-        ListView lv= (ListView)findViewById(R.id.listaProdutos);
+        ListView lv= findViewById(R.id.listaProdutos);
 
-        ArrayAdapter<Produto> adapter= new ArrayAdapter<Produto>(this,
-                R.layout.support_simple_spinner_dropdown_item, listaProdutos);
-
-        lv.setAdapter(adapter);
+        mostrarListaProdutos(listaProdutos, lv);
 
         Button btnMaps=(Button)findViewById(R.id.btnMaps);
 
@@ -49,17 +47,23 @@ public class ListaProdutos extends AppCompatActivity {
          btnAddProduto.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent tela = new Intent(ListaProdutos.this, CadastraProdutoActivity.class);
+                 Intent tela = new Intent(ListaProdutosActivity.this, CadastraProdutoActivity.class);
                  startActivity(tela);
              }
          });
          btnMaps.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent tela=new Intent(ListaProdutos.this,FarmaciaMapsActivity.class);
+                 Intent tela=new Intent(ListaProdutosActivity.this,FarmaciaMapsActivity.class);
 
                  startActivity(tela);
              }
          });
+    }
+
+    private void mostrarListaProdutos(ArrayList<Produto> listaProdutos, ListView lv) {
+        Log.d(TAG, listaProdutos.toString());
+        ProdutoAdapter mProdutoAdapter = new ProdutoAdapter(this,listaProdutos);
+        lv.setAdapter(mProdutoAdapter);
     }
 }

@@ -16,7 +16,7 @@ public class OpcoesActivity extends AppCompatActivity {
 
 
     public void listagemProdutos(View view) {
-        startActivity(new Intent(this, ListaProdutos.class));
+        startActivity(new Intent(this, ListaProdutosActivity.class));
     }
 
     public void listagemPorLocalizacao(View view) {

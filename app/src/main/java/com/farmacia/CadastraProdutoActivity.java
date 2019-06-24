@@ -1,16 +1,13 @@
 package com.farmacia;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,11 +15,9 @@ import android.widget.Toast;
 
 import com.farmacia.databases.Database;
 import com.farmacia.models.Categoria;
-import com.farmacia.models.Cidade;
 import com.farmacia.models.Produto;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CadastraProdutoActivity extends AppCompatActivity {
@@ -71,17 +66,22 @@ public class CadastraProdutoActivity extends AppCompatActivity {
         }catch(Exception exc){
             Toast.makeText(CadastraProdutoActivity.this,"Não foi possível cadastrar produto: "+exc,Toast.LENGTH_LONG).show();
 
+        }finally {
+            mDatabase.close();
         }
 
-        Intent tela= new Intent(CadastraProdutoActivity.this, ListaProdutos.class);
+        Intent tela= new Intent(CadastraProdutoActivity.this, ListaProdutosActivity.class);
         startActivity(tela);
 
     }
 
     public void selectImage(){
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, 2);
+
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhoto , 2);
+
+
     }
 
     @Override
@@ -93,7 +93,7 @@ public class CadastraProdutoActivity extends AppCompatActivity {
 
                     if(choosenImage !=null){
 
-                        mBitmap=decodeUri(choosenImage, 400);
+                        mBitmap = decodeUri(choosenImage, 400);
                         imgView.setImageBitmap(mBitmap);
                     }
                 }
@@ -139,7 +139,6 @@ public class CadastraProdutoActivity extends AppCompatActivity {
     }
 
     //Convert bitmap to bytes
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     private byte[] profileImage(Bitmap b){
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -152,7 +151,6 @@ public class CadastraProdutoActivity extends AppCompatActivity {
 
     // function to get values from the Edittext and image
     private Produto getValues(){
-        Produto produto = new Produto();
 
         String produtoNome = edtProdutoNome.getText().toString();
         String produtoPeso = edtProdutoPeso.getText().toString();
@@ -171,7 +169,7 @@ public class CadastraProdutoActivity extends AppCompatActivity {
             case R.id.imgView:
                 selectImage();
                 break;
-            case R.id.btnAddProduto:
+            case R.id.btnSalvaProduto:
                 adicionarProduto();
                 break;
 

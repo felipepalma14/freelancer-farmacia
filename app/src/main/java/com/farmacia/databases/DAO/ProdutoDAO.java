@@ -136,7 +136,7 @@ public class ProdutoDAO extends DatabaseContentProvider implements IProdutoSchem
         if (produto.getId() > 0) {
             initialValues.put(COLUNA_ID, produto.getId());
         }
-        initialValues.put(COLUNA_NOME, produto.getId());
+        initialValues.put(COLUNA_NOME, produto.getDescricao());
         initialValues.put(COLUNA_PESO, produto.getPeso());
         initialValues.put(COLUNA_IMAGEM, produto.getImage());
         initialValues.put(COLUNA_ID_CATEGORIA, produto.getCategoria().getId());

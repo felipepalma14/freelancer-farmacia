@@ -47,14 +47,15 @@ public class LoginActivity extends AppCompatActivity {
                 Usuario mUsuario =  mDatabase.mUsuarioDao.fazerLogin(loginS,senhaS);
 
                 if(mUsuario != null){
-                    Intent i = new Intent(LoginActivity.this, ListaProdutos.class);
-
+//                    Intent i = new Intent(LoginActivity.this, ListaProdutosActivity.class);
+                    Intent i = new Intent(LoginActivity.this, OpcoesActivity.class);
                     Toast.makeText(LoginActivity.this,"Seja bem vindo: " + mUsuario.getNome(),Toast.LENGTH_LONG).show();
 
                     mDatabase.close();
                     LoginSingleton.getInstance().setUsuarioAutenticado(mUsuario);
 
                     startActivity(i);
+                    finish();
                 }else{
                     Toast.makeText(LoginActivity.this, "CPF ou Senha errados",Toast.LENGTH_LONG).show();
                 }
