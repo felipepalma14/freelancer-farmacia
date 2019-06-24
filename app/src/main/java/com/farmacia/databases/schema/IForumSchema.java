@@ -17,7 +17,7 @@ public interface IForumSchema {
             + FORUM_TABLE
             + " ("
             + COLUNA_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,, "
+            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + COLUNA_USUARIO_ID
             + " INTEGER NOT NULL, "
             + COLUNA_TOPICO

@@ -91,6 +91,9 @@ public class Database {
 
             db.execSQL("DROP TABLE IF EXISTS "
                     + IUsuarioSchema.USUARIO_TABLE);
+
+            db.execSQL("DROP TABLE IF EXISTS "
+                    + IProdutoSchema.PRODUTO_TABLE);
             onCreate(db);
 
         }

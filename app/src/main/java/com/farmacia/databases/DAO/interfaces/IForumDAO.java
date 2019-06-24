@@ -1,6 +1,7 @@
 package com.farmacia.databases.DAO.interfaces;
 
 import com.farmacia.models.Categoria;
+import com.farmacia.models.Forum;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ import java.util.List;
 public interface IForumDAO {
 
 
-    public Categoria getCategoriaPorId(int id);
+    public Forum getForumPorId(int id);
 
-    public List<Categoria> getTodasCategorias();
+    public List<Forum> getTodosForuns();
 
     // add user
-    //public boolean adicionarCategoria(Categoria categoria);
+    public boolean adicionarForum(Forum forum);
 
 }

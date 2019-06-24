@@ -18,7 +18,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin, btnCadastrar;
 
-    //DBFarmacia db;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private static Database mDatabase;
@@ -37,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         mDatabase = new Database(this);
         mDatabase.open();
 
-        //db= new DBFarmacia(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 String loginS= edtLogin.getText().toString();
                 String senhaS=edtSenha.getText().toString();
+
                 Usuario mUsuario =  mDatabase.mUsuarioDao.fazerLogin(loginS,senhaS);
 
                 if(mUsuario != null){
@@ -52,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Toast.makeText(LoginActivity.this,"Seja bem vindo: " + mUsuario.getNome(),Toast.LENGTH_LONG).show();
 
+                    mDatabase.close();
                     LoginSingleton.getInstance().setUsuarioAutenticado(mUsuario);
 
                     startActivity(i);

@@ -18,13 +18,13 @@ public interface IProdutoSchema {
             + PRODUTO_TABLE
             + " ("
             + COLUNA_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,, "
+            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + COLUNA_NOME
             + " TEXT NOT NULL, "
             + COLUNA_PESO
             + " TEXT NOT NULL, "
             + COLUNA_IMAGEM
-            + "BLOB NOT NULL, "
+            + " BLOB NOT NULL, "
             + COLUNA_ID_CATEGORIA
             + " INTEGER NOT NULL, "
             //FK
@@ -32,7 +32,7 @@ public interface IProdutoSchema {
             + COLUNA_ID_CATEGORIA
             + " ) REFERENCES "
             + ICategoriaSchema.CATEGORIA_TABLE
-            + "(_id) "
+            + " (_id) "
             + ")";
 
     String[] PRODUTO_COLUNAS = new String[] {

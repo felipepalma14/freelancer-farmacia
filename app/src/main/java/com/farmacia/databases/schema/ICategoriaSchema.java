@@ -13,9 +13,9 @@ public interface ICategoriaSchema {
             + CATEGORIA_TABLE
             + " ("
             + COLUNA_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,, "
+            + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + COLUNA_DESCRICAO
-            + " TEXT NOT NULL, "
+            + " TEXT NOT NULL "
             + ")";
     String[] CATEGORIA_COLUNAS = new String[] { COLUNA_ID,COLUNA_DESCRICAO };
 

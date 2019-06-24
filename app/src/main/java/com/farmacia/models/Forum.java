@@ -7,6 +7,9 @@ public class Forum {
     private String comentario;
     private String createAt, updateAt;
 
+    public Forum() {
+    }
+
     public Forum(Usuario usuario, String topico, String comentario, String createAt, String updateAt) {
         this.usuario = usuario;
         this.topico = topico;
