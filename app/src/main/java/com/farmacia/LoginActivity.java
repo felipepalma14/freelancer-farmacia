@@ -48,7 +48,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(mUsuario != null){
 //                    Intent i = new Intent(LoginActivity.this, ListaProdutosActivity.class);
+
                     Intent i = new Intent(LoginActivity.this, OpcoesActivity.class);
+                    if(mUsuario.getCpf().equals("000")) {
+                        i = new Intent(LoginActivity.this, AdminActivity.class);
+                    }
                     Toast.makeText(LoginActivity.this,"Seja bem vindo: " + mUsuario.getNome(),Toast.LENGTH_LONG).show();
 
                     mDatabase.close();

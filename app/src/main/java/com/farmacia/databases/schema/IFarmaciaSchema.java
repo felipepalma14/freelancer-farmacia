@@ -11,6 +11,7 @@ public interface IFarmaciaSchema {
     String COLUNA_TELEFONE = "telefone";
     String COLUNA_CEP = "cep";
     String COLUNA_CNPJ = "cnpj";
+    String COLUNA_IMAGEM = "imagem";
     String COLUNA_LATITUDE = "latitude";
     String COLUNA_LONGITUDE = "longitude";
 
@@ -35,10 +36,12 @@ public interface IFarmaciaSchema {
             + " TEXT NOT NULL, "
             + COLUNA_CNPJ
             + " TEXT NOT NULL, "
+            + COLUNA_IMAGEM
+            + " BLOB NOT NULL, "
             + COLUNA_LATITUDE
-            + " TEXT NOT NULL, "
+            + " BIGINT NOT NULL, "
             + COLUNA_LONGITUDE
-            + " TEXT NOT NULL, "
+            + " BIGINT NOT NULL, "
             + COLUNA_ID_CIDADE
             + " INTEGER NOT NULL, "
             //FK
@@ -50,7 +53,7 @@ public interface IFarmaciaSchema {
             + ")";
 
     String[] FARMACIA_COLUNAS = new String[] {
-            COLUNA_ID,COLUNA_CNPJ,COLUNA_ENDERECO,COLUNA_TELEFONE,
+            COLUNA_ID,COLUNA_CNPJ,COLUNA_ENDERECO,COLUNA_TELEFONE,COLUNA_IMAGEM,
             COLUNA_NOME,COLUNA_CEP,COLUNA_ID_CIDADE, COLUNA_LATITUDE , COLUNA_LONGITUDE
     };
 }

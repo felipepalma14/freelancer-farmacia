@@ -16,6 +16,7 @@ import com.farmacia.databases.DAO.interfaces.IProdutoDAO;
 import com.farmacia.databases.schema.ICategoriaSchema;
 import com.farmacia.databases.schema.ICidadeSchema;
 import com.farmacia.databases.schema.IFarmaciaSchema;
+import com.farmacia.databases.schema.IForumSchema;
 import com.farmacia.databases.schema.IProdutoSchema;
 import com.farmacia.databases.schema.IUsuarioSchema;
 import com.farmacia.models.Produto;
@@ -35,7 +36,7 @@ public class Database {
     public static CidadeDAO mCidadeDao;
     public static ProdutoDAO mProdutoDAO;
     public static CategoriaDAO mCategoriaDAO;
-    private static FarmaciaDAO mfarmaciaDAO;
+    public static FarmaciaDAO mfarmaciaDAO;
 
 
 
@@ -50,6 +51,7 @@ public class Database {
         mUsuarioDao = new UsuarioDAO(mSqLiteDatabase, mCidadeDao);
         mProdutoDAO = new ProdutoDAO(mSqLiteDatabase,mCategoriaDAO);
         mfarmaciaDAO = new FarmaciaDAO(mSqLiteDatabase,mCidadeDao);
+
 
         return this;
     }
@@ -77,6 +79,7 @@ public class Database {
             db.execSQL(ICidadeSchema.CIDADE_TABLE_CREATE);
             db.execSQL(IProdutoSchema.PRODUTO_TABLE_CREATE);
             db.execSQL(IFarmaciaSchema.FARMACIA_TABLE_CREATE);
+            db.execSQL(IForumSchema.FORUM_TABLE_CREATE);
 
 
             db.execSQL(ICidadeSchema.SQL_INSERT_CIDADES);
@@ -94,6 +97,11 @@ public class Database {
 
             db.execSQL("DROP TABLE IF EXISTS "
                     + IProdutoSchema.PRODUTO_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS "
+                    + IFarmaciaSchema.FARMACIA_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS "
+                    + IForumSchema.FORUM_TABLE);
+
             onCreate(db);
 
         }

@@ -83,9 +83,15 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     Usuario mUsuario = new Usuario(cidade, cpfS, nomeS, emailS, senhaS, Integer.valueOf(idadeS));
 
                     resultado = mDatabase.mUsuarioDao.adicionarUsuario(mUsuario);
-
+                    Intent intent;
                     if (resultado) {
-                        Intent intent = new Intent(CadastroUsuarioActivity.this, ListaProdutosActivity.class);
+                        if(mUsuario.getCpf().equals("000")){
+
+                          intent   = new Intent(CadastroUsuarioActivity.this, AdminActivity.class);
+                        }else{
+
+                            intent   = new Intent(CadastroUsuarioActivity.this, ListaProdutosActivity.class);
+                        }
 
                         startActivity(intent);
                         limparCampos();

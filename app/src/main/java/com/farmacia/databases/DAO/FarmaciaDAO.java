@@ -15,6 +15,7 @@ import com.farmacia.databases.schema.IUsuarioSchema;
 import com.farmacia.models.Farmacia;
 import com.farmacia.models.Produto;
 import com.farmacia.models.Usuario;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class FarmaciaDAO extends DatabaseContentProvider implements IFarmaciaSch
     }
 
     @Override
-    public List<Farmacia> getTodasFarmacias() {
+    public ArrayList<Farmacia> getTodasFarmacias() {
         ArrayList<Farmacia> farmaciaLista = new ArrayList<>();
         cursor = super.query(FARMACIA_TABLE, FARMACIA_COLUNAS, null,
                 null, COLUNA_ID);
@@ -104,6 +105,10 @@ public class FarmaciaDAO extends DatabaseContentProvider implements IFarmaciaSch
         int longitudeIndex;
         int latitudeIndex;
         int cidadeIndex;
+        int imagemIndex;
+
+        double lat = 0;
+        double lng = 0;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(COLUNA_ID) != -1) {
@@ -140,24 +145,32 @@ public class FarmaciaDAO extends DatabaseContentProvider implements IFarmaciaSch
                         COLUNA_TELEFONE);
                 mFarmacia.setTelefone(cursor.getString(telefoneIndex));
             }
-            /*
+
             if (cursor.getColumnIndex(COLUNA_LATITUDE) != -1) {
                 latitudeIndex = cursor.getColumnIndexOrThrow(
                         COLUNA_LATITUDE);
-                mFarmacia.setGeoLocalizacao(cursor.getString(telefoneIndex));
+
+                lat = (cursor.getDouble(latitudeIndex));
             }
             if (cursor.getColumnIndex(COLUNA_LONGITUDE) != -1) {
                 longitudeIndex = cursor.getColumnIndexOrThrow(
                         COLUNA_LONGITUDE);
-                mFarmacia.setGeoLocalizacao(cursor.getString(telefoneIndex));
+                lng = (cursor.getDouble(longitudeIndex));
             }
-             */
+
+            if (cursor.getColumnIndex(COLUNA_IMAGEM) != -1) {
+                imagemIndex = cursor.getColumnIndexOrThrow(
+                        COLUNA_IMAGEM);
+                mFarmacia.setImagem(cursor.getBlob(imagemIndex));
+            }
 
             if (cursor.getColumnIndex(COLUNA_ID_CIDADE) != -1) {
                 cidadeIndex = cursor.getColumnIndexOrThrow(
                         COLUNA_ID_CIDADE);
                 mFarmacia.setCidade(cidadeDAO.getCidadePorId(cursor.getInt(cidadeIndex)));
             }
+
+            mFarmacia.setGeoLocalizacao(new LatLng(lat,lng));
 
         }
         return mFarmacia;
@@ -173,6 +186,10 @@ public class FarmaciaDAO extends DatabaseContentProvider implements IFarmaciaSch
         initialValues.put(COLUNA_ENDERECO, farmacia.getEndereco());
         initialValues.put(COLUNA_CNPJ, farmacia.getCpnj());
         initialValues.put(COLUNA_CEP, farmacia.getCep());
+        initialValues.put(COLUNA_TELEFONE, farmacia.getTelefone());
+        initialValues.put(COLUNA_LATITUDE, farmacia.getGeoLocalizacao().latitude);
+        initialValues.put(COLUNA_LONGITUDE, farmacia.getGeoLocalizacao().longitude);
+        initialValues.put(COLUNA_IMAGEM, farmacia.getImagem());
         initialValues.put(COLUNA_TELEFONE, farmacia.getTelefone());
         initialValues.put(COLUNA_ID_CIDADE, farmacia.getCidade().getId());
     }
