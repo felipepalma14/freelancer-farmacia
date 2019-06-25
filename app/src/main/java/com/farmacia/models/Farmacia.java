@@ -4,7 +4,9 @@ import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class Farmacia {
+import java.io.Serializable;
+
+public class Farmacia implements Serializable {
 
     private int id;
     private String nome;
@@ -92,15 +94,6 @@ public class Farmacia {
 
     @Override
     public String toString() {
-        return "Farmacia{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", cep='" + cep + '\'' +
-                ", cpnj='" + cpnj + '\'' +
-                ", cidade=" + cidade +
-                ", geoLocalizacao=" + geoLocalizacao.toString() +
-                '}';
+        return this.getNome() + " - " + this.getCidade().getNome();
     }
 }

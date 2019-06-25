@@ -2,6 +2,7 @@ package com.farmacia;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -79,7 +80,7 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         isGpsEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(NETWORK_PROVIDER);
-
+/*
         if (isGpsEnable) {
             if (location == null) {
                 if (ActivityCompat.checkSelfPermission(FarmaciaMapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -109,7 +110,7 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
             }
 
         }
-
+        */
     }
 
     @Override
@@ -125,15 +126,38 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
 
         farmacias = mDatabase.mfarmaciaDAO.getTodasFarmacias();
 
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(farmacias.get(0).getGeoLocalizacao(), 10.2f));
+
         for (Farmacia farmacia: farmacias) {
-            mMap.addMarker(new MarkerOptions().position(farmacia.getGeoLocalizacao()).snippet(farmacia.getNome()));
+            mMap.addMarker(new MarkerOptions().position(farmacia.getGeoLocalizacao()).title("Farmacia " + farmacia.getNome()).snippet(farmacia.getEndereco()));
 
         }
 
-        mLocationService.getFusedLocationClient().getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public void onSuccess(Location location) {
+            public boolean onMarkerClick(Marker marker) {
+//                    Toast.makeText(mapTracking.this, ""+latLng, Toast.LENGTH_SHORT).show();
+                LatLng loc = marker.getPosition();
+                double lat1 = loc.latitude;
+                double lng1 = loc.longitude;
+                Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(lat1, lng1, 1);
+                    Address address = addresses.get(0);
+                    for (Farmacia farm:farmacias) {
+                        if(marker.getPosition().equals(farm.getGeoLocalizacao())){
+                            Intent intent = new Intent(getApplicationContext(), ListaProdutosActivity.class);
+                            intent.putExtra("FARMACIA",farm.getId());
+                            startActivity(intent);
+                        }
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return false;
             }
         });
 
@@ -141,29 +165,13 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
 
     }
 
+
     /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1: {
-                // Se a solicitação de permissão foi cancelada o array vem vazio.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permissão cedida, recria a activity para carregar o mapa, só será executado uma vez
-                    this.recreate();
-
-                }
-
-            }
-        }
-    }*/
-
     final LocationListener myLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
 
             mMap.clear();
-            Log.d("TESTE", location.getAccuracy() +"");
             final double lat = location.getLatitude();
             final double lon = location.getLongitude();
             //db.insertMyLocation(lat,lon);
@@ -215,6 +223,6 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
 
         }
     };
-
+*/
 
 }

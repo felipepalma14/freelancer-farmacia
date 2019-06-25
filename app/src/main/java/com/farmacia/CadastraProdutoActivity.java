@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.farmacia.databases.Database;
 import com.farmacia.models.Categoria;
+import com.farmacia.models.Farmacia;
 import com.farmacia.models.Produto;
 
 import java.io.ByteArrayOutputStream;
@@ -32,6 +33,10 @@ public class CadastraProdutoActivity extends AppCompatActivity {
     private EditText edtProdutoNome, edtProdutoPeso;
     private Spinner spnCategoria;
 
+    private Spinner spnFarmacia;
+    private Farmacia mFarmacia;
+    private ArrayList<Farmacia> farmacias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +47,27 @@ public class CadastraProdutoActivity extends AppCompatActivity {
         edtProdutoPeso = findViewById(R.id.edt_peso_produto);
 
         spnCategoria = findViewById(R.id.spn_categoria);
+        spnFarmacia = findViewById(R.id.spn_farmacia);
 
         mDatabase = new Database(this);
+        mDatabase.open();
+
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            int idFarmacia = extras.getInt("FARMACIA");
+            mFarmacia = mDatabase.mfarmaciaDAO.getFarmaciaPorId(idFarmacia);
+            farmacias = new ArrayList<>();
+            farmacias.add(mFarmacia);
+
+        }else{
+
+            farmacias= mDatabase.mfarmaciaDAO.getTodasFarmacias();
+        }
+
 
         initializeUI();
-
-
 
 
 
@@ -156,9 +176,11 @@ public class CadastraProdutoActivity extends AppCompatActivity {
         String produtoPeso = edtProdutoPeso.getText().toString();
         Categoria categoria = (Categoria)spnCategoria.getSelectedItem();
 
+        Farmacia farmacia = (Farmacia) spnFarmacia.getSelectedItem();
+
         byte[] produtoImagem = profileImage(mBitmap);
 
-        return new Produto(categoria, produtoNome, produtoPeso,produtoImagem);
+        return new Produto(categoria, produtoNome, produtoPeso,produtoImagem,farmacia);
     }
 
 
@@ -185,5 +207,18 @@ public class CadastraProdutoActivity extends AppCompatActivity {
 
         spnCategoria.setAdapter(adapter);
 
+
+        ArrayAdapter<Farmacia> adapterFarmacia =
+                new ArrayAdapter<Farmacia>(getApplicationContext(),R.layout.spinner_item, farmacias);
+
+        spnFarmacia.setAdapter(adapterFarmacia);
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDatabase.close();
     }
 }

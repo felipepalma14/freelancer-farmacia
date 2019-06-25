@@ -31,6 +31,12 @@
             android:onClick="listagemProdutos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_lista_forum"
+            android:text="Acessar Foruns"
+            android:onClick="listagemForuns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

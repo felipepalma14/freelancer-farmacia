@@ -4,50 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastraProdutoActivity">
+    tools:context=".ForumActivity">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_margin="20dp"
+            android:text="Cadastro de Forum"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <ImageView
-            android:id="@+id/imgView"
-            android:layout_margin="20dp"
-            android:onClick="botaoClicado"
-            android:src="@drawable/no_image"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-        <EditText
-            android:id="@+id/edt_nome_produto"
-            android:hint="Produto"
+            android:src="@drawable/logo"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/edt_peso_produto"
-            android:hint="Peso"
+            android:id="@+id/edt_topico_forum"
+            android:hint="Topico"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Spinner
-            android:id="@+id/spn_categoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
 
 
         <Spinner
             android:id="@+id/spn_farmacia"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Spinner>
 
         <Button
-            android:id="@+id/btnSalvaProduto"
-            android:text="Salvar Produto"
-            android:onClick="botaoClicado"
+            android:id="@+id/btn_registra_forum"
+            android:text="Registrar Forum"
+            android:onClick="registrarForum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
     </LinearLayout>
 
 </ScrollView>

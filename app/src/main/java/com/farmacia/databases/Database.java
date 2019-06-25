@@ -9,6 +9,7 @@ import android.util.Log;
 import com.farmacia.databases.DAO.CategoriaDAO;
 import com.farmacia.databases.DAO.CidadeDAO;
 import com.farmacia.databases.DAO.FarmaciaDAO;
+import com.farmacia.databases.DAO.ForumDAO;
 import com.farmacia.databases.DAO.ProdutoDAO;
 import com.farmacia.databases.DAO.UsuarioDAO;
 import com.farmacia.databases.DAO.interfaces.ICategoriaDAO;
@@ -37,6 +38,8 @@ public class Database {
     public static ProdutoDAO mProdutoDAO;
     public static CategoriaDAO mCategoriaDAO;
     public static FarmaciaDAO mfarmaciaDAO;
+    public static ForumDAO mForumDAO;
+
 
 
 
@@ -49,8 +52,9 @@ public class Database {
         mCategoriaDAO = new CategoriaDAO(mSqLiteDatabase);
 
         mUsuarioDao = new UsuarioDAO(mSqLiteDatabase, mCidadeDao);
-        mProdutoDAO = new ProdutoDAO(mSqLiteDatabase,mCategoriaDAO);
+        mProdutoDAO = new ProdutoDAO(mSqLiteDatabase,mCategoriaDAO,mfarmaciaDAO);
         mfarmaciaDAO = new FarmaciaDAO(mSqLiteDatabase,mCidadeDao);
+        mForumDAO = new ForumDAO(mSqLiteDatabase, mUsuarioDao, mfarmaciaDAO);
 
 
         return this;

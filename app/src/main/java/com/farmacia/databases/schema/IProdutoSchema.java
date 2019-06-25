@@ -10,6 +10,7 @@ public interface IProdutoSchema {
     String COLUNA_PESO = "peso";
     String COLUNA_IMAGEM = "imagem";
 
+    String COLUNA_ID_FARMACIA = "_id_farmacia";
     String COLUNA_ID_CATEGORIA = "_id_categoria";
 
 
@@ -25,9 +26,16 @@ public interface IProdutoSchema {
             + " TEXT NOT NULL, "
             + COLUNA_IMAGEM
             + " BLOB NOT NULL, "
+            + COLUNA_ID_FARMACIA
+            + " INTEGER NOT NULL, "
             + COLUNA_ID_CATEGORIA
             + " INTEGER NOT NULL, "
             //FK
+            + "FOREIGN KEY( "
+            + COLUNA_ID_FARMACIA
+            + " ) REFERENCES "
+            + IProdutoSchema.PRODUTO_TABLE
+            + " (_id), "
             + "FOREIGN KEY( "
             + COLUNA_ID_CATEGORIA
             + " ) REFERENCES "
@@ -36,6 +44,7 @@ public interface IProdutoSchema {
             + ")";
 
     String[] PRODUTO_COLUNAS = new String[] {
-            COLUNA_ID,COLUNA_NOME,COLUNA_PESO, COLUNA_IMAGEM,  COLUNA_ID_CATEGORIA
+            COLUNA_ID,COLUNA_NOME,COLUNA_PESO, COLUNA_IMAGEM,  COLUNA_ID_CATEGORIA,
+            COLUNA_ID_FARMACIA
     };
 }

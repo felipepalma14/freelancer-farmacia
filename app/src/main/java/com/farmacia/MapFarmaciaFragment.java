@@ -104,7 +104,6 @@ public class MapFarmaciaFragment extends Fragment {
             public void onLocationChanged(final Location location) {
 
                 mGoogleMap.clear();
-                Log.d("TESTE", location.getAccuracy() +"");
                 final double lat = location.getLatitude();
                 final double lon = location.getLongitude();
                 //db.insertMyLocation(lat,lon);

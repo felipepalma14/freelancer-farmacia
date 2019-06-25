@@ -6,26 +6,19 @@ public class Produto {
     private String descricao;
     private String peso;
     private byte[] image;
+    private Farmacia farmacia;
 
     public Produto() {
     }
 
-    public Produto(Categoria categoria, String descricao, String peso, byte[] image) {
+
+    public Produto(Categoria categoria, String descricao, String peso, byte[] image, Farmacia farmacia) {
         this.categoria = categoria;
         this.descricao = descricao;
         this.peso = peso;
         this.image = image;
+        this.farmacia = farmacia;
     }
-
-    public Produto(int id, Categoria categoria, String descricao, String peso, byte[] image) {
-        this.id = id;
-        this.categoria = categoria;
-        this.descricao = descricao;
-        this.peso = peso;
-        this.image = image;
-    }
-
-
 
     public int getId() {
         return id;
@@ -65,6 +58,14 @@ public class Produto {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public Farmacia getFarmacia() {
+        return farmacia;
+    }
+
+    public void setFarmacia(Farmacia farmacia) {
+        this.farmacia = farmacia;
     }
 
     @Override

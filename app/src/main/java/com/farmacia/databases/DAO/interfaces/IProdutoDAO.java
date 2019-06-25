@@ -15,7 +15,12 @@ public interface IProdutoDAO {
 
     public List<Produto> getTodosProdutos();
 
+
+    public List<Produto> getTodosProdutosPorFarmacia(int id);
+
     // add user
     public boolean adicionarProduto(Produto produto);
+
+
 
 }

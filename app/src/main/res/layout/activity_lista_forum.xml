@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListaProdutosActivity">
+    tools:context=".ListaForumActivity">
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,7 +14,7 @@
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/listaProdutos"
+            android:id="@+id/listaForum"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
@@ -22,21 +23,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></ListView>
         <Button
-            android:id="@+id/btnAddProduto"
+            android:id="@+id/btn_cadastra_forum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="adicionarForum"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="16dp"
-            android:text="Adicionar produto" />
+            android:text="Adicionar Forum" />
 
-        <Button
-            android:id="@+id/btnMaps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mapas"/>
+
 
     </LinearLayout>
 

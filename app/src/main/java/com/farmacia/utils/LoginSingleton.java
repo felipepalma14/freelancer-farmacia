@@ -8,7 +8,7 @@ import com.farmacia.models.Usuario;
 public class LoginSingleton {
     private static LoginSingleton mLoginSingleton;
 
-    private Usuario mUsuario;
+    private static Usuario mUsuario;
 
     //private constructor.
     private LoginSingleton(){
@@ -32,7 +32,7 @@ public class LoginSingleton {
         mLoginSingleton.mUsuario = usuario;
     }
 
-    private static Usuario getUsuarioAutenticado(){
-        return mLoginSingleton.mUsuario;
+    public  Usuario getUsuarioAutenticado(){
+        return mUsuario;
     }
 }

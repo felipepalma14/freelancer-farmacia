@@ -17,6 +17,7 @@ import com.farmacia.models.Produto;
 import com.farmacia.models.Usuario;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Felipe Palma on 22/06/2019.
@@ -27,14 +28,16 @@ public class ProdutoDAO extends DatabaseContentProvider implements IProdutoSchem
     private ContentValues initialValues;
 
     private CategoriaDAO categoriaDAO;
+    private FarmaciaDAO farmaciaDAO;
 
 
 
 
-    public ProdutoDAO(SQLiteDatabase db, CategoriaDAO categoriaDAO) {
+    public ProdutoDAO(SQLiteDatabase db, CategoriaDAO categoriaDAO,FarmaciaDAO farmaciaDAO) {
 
         super(db);
         this.categoriaDAO = categoriaDAO;
+        this.farmaciaDAO = farmaciaDAO;
     }
 
     @Override
@@ -89,6 +92,26 @@ public class ProdutoDAO extends DatabaseContentProvider implements IProdutoSchem
     }
 
     @Override
+    public ArrayList<Produto> getTodosProdutosPorFarmacia(int id) {
+        final String selectionArgs[] = { String.valueOf(id) };
+        final String selection = COLUNA_ID_FARMACIA + " = ?";
+        ArrayList<Produto> produtoLista = new ArrayList<>();
+        cursor = super.query(PRODUTO_TABLE, PRODUTO_COLUNAS, selection,
+                selectionArgs, COLUNA_ID);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Produto item = cursorToEntity(cursor);
+                produtoLista.add(item);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+
+        return produtoLista;
+    }
+
+    @Override
     protected Produto cursorToEntity(Cursor cursor) {
         Produto mProduto = new Produto();
 
@@ -96,6 +119,7 @@ public class ProdutoDAO extends DatabaseContentProvider implements IProdutoSchem
         int nomeIndex;
         int pesoIndex;
         int imagemIndex;
+        int farmaciaIdIndex;
         int categoriaIdIndex;
 
 
@@ -120,11 +144,17 @@ public class ProdutoDAO extends DatabaseContentProvider implements IProdutoSchem
                         COLUNA_IMAGEM);
                 mProduto.setImage(cursor.getBlob(imagemIndex));
             }
+            if (cursor.getColumnIndex(COLUNA_ID_FARMACIA) != -1) {
+                farmaciaIdIndex = cursor.getColumnIndexOrThrow(
+                        COLUNA_ID_FARMACIA);
+                mProduto.setFarmacia(farmaciaDAO.getFarmaciaPorId(cursor.getInt(farmaciaIdIndex)));
+            }
 
             if (cursor.getColumnIndex(COLUNA_ID_CATEGORIA) != -1) {
                 categoriaIdIndex = cursor.getColumnIndexOrThrow(
                         COLUNA_ID_CATEGORIA);
                 mProduto.setCategoria(categoriaDAO.getCategoriaPorId(cursor.getInt(categoriaIdIndex)));
+
             }
 
         }
@@ -139,6 +169,7 @@ public class ProdutoDAO extends DatabaseContentProvider implements IProdutoSchem
         initialValues.put(COLUNA_NOME, produto.getDescricao());
         initialValues.put(COLUNA_PESO, produto.getPeso());
         initialValues.put(COLUNA_IMAGEM, produto.getImage());
+        initialValues.put(COLUNA_ID_FARMACIA, produto.getFarmacia().getId());
         initialValues.put(COLUNA_ID_CATEGORIA, produto.getCategoria().getId());
 
     }

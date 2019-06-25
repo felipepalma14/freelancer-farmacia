@@ -5,17 +5,18 @@ public class Forum {
     private Usuario usuario;
     private String topico;
     private String comentario;
-    private String createAt, updateAt;
+    private String createAt;
+    private Farmacia farmacia;
 
     public Forum() {
     }
 
-    public Forum(Usuario usuario, String topico, String comentario, String createAt, String updateAt) {
+    public Forum(Usuario usuario, String topico, String comentario, String createAt, Farmacia farmacia) {
         this.usuario = usuario;
         this.topico = topico;
         this.comentario = comentario;
         this.createAt = createAt;
-        this.updateAt = updateAt;
+        this.farmacia = farmacia;
     }
 
     public int getId() {
@@ -58,12 +59,12 @@ public class Forum {
         this.createAt = createAt;
     }
 
-    public String getUpdateAt() {
-        return updateAt;
+    public Farmacia getFarmacia() {
+        return farmacia;
     }
 
-    public void setUpdateAt(String updateAt) {
-        this.updateAt = updateAt;
+    public void setFarmacia(Farmacia farmacia) {
+        this.farmacia = farmacia;
     }
 
     @Override
@@ -74,7 +75,6 @@ public class Forum {
                 ", topico='" + topico + '\'' +
                 ", comentario='" + comentario + '\'' +
                 ", createAt='" + createAt + '\'' +
-                ", updateAt='" + updateAt + '\'' +
                 '}';
     }
 }

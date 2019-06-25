@@ -27,11 +27,13 @@ public class ForumDAO extends DatabaseContentProvider implements IForumSchema, I
     private ContentValues initialValues;
 
     private UsuarioDAO usuarioDAO;
+    private FarmaciaDAO farmaciaDAO;
 
 
-    public ForumDAO(SQLiteDatabase db, UsuarioDAO usuarioDAO){
+    public ForumDAO(SQLiteDatabase db, UsuarioDAO usuarioDAO, FarmaciaDAO farmaciaDAO){
         super(db);
         this.usuarioDAO = usuarioDAO;
+        this.farmaciaDAO = farmaciaDAO;
     }
 
 
@@ -56,7 +58,7 @@ public class ForumDAO extends DatabaseContentProvider implements IForumSchema, I
     }
 
     @Override
-    public List<Forum> getTodosForuns() {
+    public ArrayList<Forum> getTodosForuns() {
 
         ArrayList<Forum> lista = new ArrayList<>();
         cursor = super.query(FORUM_TABLE, FORUM_COLUNAS, null,
@@ -98,6 +100,7 @@ public class ForumDAO extends DatabaseContentProvider implements IForumSchema, I
         int idIndex;
         int topicoIndex;
         int usuarioIndex;
+        int farmaciaIndex;
 
         if (cursor != null) {
             if (cursor.getColumnIndex(COLUNA_ID) != -1) {
@@ -114,6 +117,11 @@ public class ForumDAO extends DatabaseContentProvider implements IForumSchema, I
                         COLUNA_USUARIO_ID);
                 mForum.setUsuario(usuarioDAO.getUsuarioPorId(cursor.getInt(usuarioIndex)));
             }
+            if (cursor.getColumnIndex(COLUNA_FARMACIA_ID) != -1) {
+                farmaciaIndex = cursor.getColumnIndexOrThrow(
+                        COLUNA_FARMACIA_ID);
+                mForum.setFarmacia(farmaciaDAO.getFarmaciaPorId(cursor.getInt(farmaciaIndex)));
+            }
 
         }
         return mForum;
@@ -127,6 +135,7 @@ public class ForumDAO extends DatabaseContentProvider implements IForumSchema, I
         }
         initialValues.put(COLUNA_TOPICO, forum.getTopico());
         initialValues.put(COLUNA_USUARIO_ID, forum.getUsuario().getId());
+        initialValues.put(COLUNA_FARMACIA_ID, forum.getFarmacia().getId());
     }
 
     private ContentValues getContentValue() {

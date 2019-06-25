@@ -90,7 +90,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                           intent   = new Intent(CadastroUsuarioActivity.this, AdminActivity.class);
                         }else{
 
-                            intent   = new Intent(CadastroUsuarioActivity.this, ListaProdutosActivity.class);
+                            intent   = new Intent(CadastroUsuarioActivity.this, OpcoesActivity.class);
                         }
 
                         startActivity(intent);

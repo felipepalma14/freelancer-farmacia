@@ -22,4 +22,9 @@ public class OpcoesActivity extends AppCompatActivity {
     public void listagemPorLocalizacao(View view) {
         startActivity(new Intent(this,FarmaciaMapsActivity.class));
     }
+
+    public void listagemForuns(View view) {
+
+        startActivity(new Intent(this,ListaForumActivity.class));
+    }
 }

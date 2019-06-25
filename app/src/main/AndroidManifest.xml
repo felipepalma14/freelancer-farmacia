@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaFarmaciaActivity"></activity>
+        <activity android:name=".ListaForumActivity"></activity>
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".ListaFarmaciaActivity" />
         <activity android:name=".CadastraFarmaciaActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".OpcoesActivity" />

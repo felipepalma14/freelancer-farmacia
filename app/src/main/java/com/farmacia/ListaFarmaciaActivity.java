@@ -1,5 +1,6 @@
 package com.farmacia;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +43,9 @@ public class ListaFarmaciaActivity extends AppCompatActivity {
         lvFarmacia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),listaFarmacias.get(position).getNome(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), CadastraProdutoActivity.class);
+                intent.putExtra("FARMACIA",listaFarmacias.get(position).getId());
+                startActivity(intent);
             }
         });
 
