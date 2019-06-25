@@ -16,7 +16,9 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.farmacia.databases.Database;
 import com.farmacia.location.LocationService;
+import com.farmacia.models.Farmacia;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,6 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,6 +39,10 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
 
     private GoogleMap mMap;
     private LocationService mLocationService;
+
+    private static final String TAG = FarmaciaMapsActivity.class.getSimpleName();
+    private static Database mDatabase;
+    private ArrayList<Farmacia> farmacias;
 
     boolean isGpsEnable = false;
     boolean isNetworkEnable = false;
@@ -52,6 +59,10 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+
+
+        mDatabase = new Database(this);
+        mDatabase.open();
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),
@@ -111,11 +122,18 @@ public class FarmaciaMapsActivity extends FragmentActivity implements OnMapReady
                 requestPermissions(permissoes, 1);
             }
         }
+
+        farmacias = mDatabase.mfarmaciaDAO.getTodasFarmacias();
+
+        for (Farmacia farmacia: farmacias) {
+            mMap.addMarker(new MarkerOptions().position(farmacia.getGeoLocalizacao()).snippet(farmacia.getNome()));
+
+        }
+
         mLocationService.getFusedLocationClient().getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                Log.d("TESTE 1", location.getAccuracy() +"");
             }
         });
 
